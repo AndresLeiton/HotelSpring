@@ -13,5 +13,10 @@ public class HelloController {
     public String helloWorld(){
         return "Hello World!!";
     }
+    
+    @GetMapping("/hector")
+    public String helloWorld2() {
+    	return "Hello world 2";
+    }
 
 }

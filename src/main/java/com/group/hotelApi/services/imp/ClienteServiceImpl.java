@@ -22,4 +22,31 @@ public class ClienteServiceImpl implements ClienteService {
     public Cliente crearCliente(Cliente cliente) {
         return clienteRepository.save(cliente);
     }
+
+    @Override
+    public Cliente findCliente(Integer idCliente) {
+        return clienteRepository.findById(idCliente).get();
+    }
+
+    @Override
+    public Cliente editClient(Integer idCliente, Cliente cliente) {
+
+        Cliente clienteActualizado=clienteRepository.findById(idCliente)
+                .orElseThrow(()->new RuntimeException("cliente no encontrado con el id :"+idCliente));
+
+        clienteActualizado.setNombre(cliente.getNombre());
+        clienteActualizado.setApellido(cliente.getApellido());
+        clienteActualizado.setEmail(cliente.getEmail());
+        clienteActualizado.setTelefono(cliente.getTelefono());
+        clienteActualizado.setFecNaci(cliente.getFecNaci());
+        clienteRepository.save(clienteActualizado);
+        return clienteActualizado;
+    }
+
+    @Override
+    public void deleteClient(Integer idCliente) {
+        Cliente clienteActualizado=clienteRepository.findById(idCliente)
+                .orElseThrow(()->new RuntimeException("cliente no encontrado con el id :"+idCliente));
+         clienteRepository.deleteById(clienteActualizado.getIdCliente());
+    }
 }

@@ -2,14 +2,15 @@ package com.group.hotelApi.entities;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "clientes")
@@ -23,5 +24,13 @@ public class Cliente {
     private String email;
     private Integer telefono;
     private LocalDate fecNaci;
+    @OneToMany(mappedBy ="cliente")
+    private Set<Habitacion> habitaciones = new HashSet<>();
 
+    public void setHabitaciones(Set<Habitacion> habitaciones) {
+        this.habitaciones = habitaciones;
+        for (Habitacion habitacion : habitaciones){
+            habitacion.setCliente(this);
+        }
+    }
 }

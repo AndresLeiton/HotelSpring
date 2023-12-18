@@ -7,15 +7,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import java.util.List;
 
 @RestController
-@RequestMapping("/habitaciones")
+@RequestMapping("/v1/habitaciones")
 @AllArgsConstructor
 public class HabitacionController {
+
     private HabitacionService habitacionService;
-    @GetMapping
-    public List<Habitacion> listarHabitaciones(){
+
+    @GetMapping()
+    private List<Habitacion> listarHabitaciones(){
         return habitacionService.listarHabitaciones();
+    }
+
+    @GetMapping("/{idHabitacion}")
+    private Habitacion listarHabitaciones(@PathVariable Integer idHabitacion){
+        return habitacionService.buscarHabitacion(idHabitacion);
+    }
+    @PostMapping("/crear")
+    private Habitacion crearHabitacion(@RequestBody Habitacion habitacion){
+        return habitacionService.crearHabitacion(habitacion);
     }
 }

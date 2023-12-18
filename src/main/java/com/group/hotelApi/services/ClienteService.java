@@ -10,4 +10,7 @@ public interface ClienteService {
 
     List<Cliente> listCliente();
     Cliente crearCliente(Cliente cliente);
+    Cliente findCliente(Integer idCliente);
+    Cliente editClient(Integer idCliente,Cliente cliente);
+    void deleteClient(Integer idCliente);
 }
